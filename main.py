@@ -29,7 +29,7 @@ train_dataset = MNIST(root='../../data', train=True, download=True, transform=tr
 train_dataloader = DataLoader(train_dataset, batch_size=bsz, shuffle=True, num_workers=8, drop_last=True)
 model = RefineNet(
     in_channels=1,
-    hidden_channels=(64, 128, 256, 512),
+    hidden_channels=(128, 256, 512, 1024),
     n_noise_scale=noise_steps
 ).to(device)
 criterion = nn.MSELoss()
@@ -37,7 +37,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 noise_scales = linear_noise_scale(start=1., end=0.01, length=10).to(device)
 
 
-for epoch in range(50):
+for epoch in range(100):
     print(f'Epoch {epoch}')
     epoch_loss = 0.
     for i, (x, _) in enumerate(tqdm(train_dataloader)):
