@@ -11,7 +11,7 @@ def langevin_step(model, x, step_size, noise_idx):
 
 @torch.no_grad()
 def langevin_dynamics(model, x, step_size, noise_idx, n_steps=100):
-    for i in tqdm(range(n_steps)):
+    for i in range(n_steps):
         x = langevin_step(model, x, step_size, noise_idx)
     return x
 
